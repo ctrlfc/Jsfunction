@@ -39,6 +39,37 @@ function copyArray(source, array) {
     return array;
 }
 
+// 拆分?最小个数?每次迭代调用的函数?限制通过迭代调用检查的值?基本结果
+function baseFlatten(array, depth, predicate, isStrict, result) {
+    let index = -1,
+        length = array.length;
+
+    predicate || (predicate = isFlattenable);
+    result || (result = []);
+
+    while (++index < length) {
+        let value = array[index];
+        if (depth > 0 && predicate(value)) {
+            if (depth > 1) {
+                // Recursively flatten arrays (susceptible to call stack limits).
+                baseFlatten(value, depth - 1, predicate, isStrict, result);
+            } else {
+                arrayPush(result, value);
+            }
+        } else if (!isStrict) {
+            result[result.length] = value;
+        }
+    }
+    return result;
+}
+
+// 判断是否能拆分(默认)
+function isFlattenable(value) {
+    return isArray(value) || !!(spreadableSymbol && value && value[spreadableSymbol])
+}
+
+// 是否展开其数组元素。
+const spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
 
 function concat() {
     // 本次函数调用时传入函数的实参数量.
@@ -47,7 +78,9 @@ function concat() {
         return [];
     }
 
+    // 下标比长度少一位
     let args = new Array(length - 1),
+        // 第一位数组参数    
         array = arguments[0],
         index = length;
 
@@ -55,5 +88,22 @@ function concat() {
         args[index - 1] = arguments[index];
     }
 
+    // 是否是数组,是则复制过来,不是则初始化一个
     return arrayPush(isArray(array) ? copyArray(array) : [array], baseFlatten(args, 1));
 }
+
+let array = [1];
+let other = concat(array, 2, [3], [[4]]);
+
+console.log(other);
+// => [1, 2, 3, [4]]
+
+console.log(array);
+// => [1]
+
+
+/*
+var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
+    return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
+        !propertyIsEnumerable.call(value, 'callee');
+};*/
