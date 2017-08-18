@@ -14,5 +14,13 @@
 const difference = baseRest(function (array, values) {
     // return
 });
+
+function baseDifference(array, values, iteratee, comparator, comparator) {
+    let index = -1,
+        includes = arrayIncludes,
+        isCommon = true,
+        length = array.length,
+        result = [],
+        valueslength = values.length;
     
-function baseDifference()
+}
