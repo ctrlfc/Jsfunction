@@ -3,7 +3,7 @@ function baseSlice(array, start, end) {
         length = array.length;
 
     end = end > length ? length : end;
-    length = ((end - start) >>> 0);
+    length = (end - start) >>> 0;
     start >>>= 0;
 
     const result = new Array(length);
