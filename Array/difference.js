@@ -15,10 +15,18 @@ const difference = baseRest(function (array, values) {
     // return
 });
 
+function arrayIncludes(array, value) {
+    let length = array == null ? 0 : array.length;
+    return !!length && baseIndexOf(array, value, 0) > -1;
+}
+
 function arrayIncludesWith(array, value, comparator) {
 
 };
 
+function cacheHas(cache, key) {
+    return cache.has(key);
+}
 
 function baseDifference(array, values, iteratee, comparator, comparator) {
     let index = -1,
@@ -52,5 +60,17 @@ function baseDifference(array, values, iteratee, comparator, comparator) {
                 computed = iteratee == null ? value : iteratee(value);
 
             value = (comparator || value !== 0) ? value : 0;
+            if (isCommon && computed === computed) {
+                const valuesIndex = valueslength;
+                while (valuesIndex--) {
+                    if (values[valuesIndex] === computed) {
+                        continue outer;
+                    }
+                }
+                result.push(value);
+            } else if (!includes(values, computed, comparator)) {
+                result.push(value);
+            }
         }
+    return result;
 };
