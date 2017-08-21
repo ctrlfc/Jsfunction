@@ -15,6 +15,11 @@ const difference = baseRest(function (array, values) {
     // return
 });
 
+function arrayIncludesWith(array, value, comparator) {
+
+};
+
+
 function baseDifference(array, values, iteratee, comparator, comparator) {
     let index = -1,
         includes = arrayIncludes,
@@ -22,5 +27,30 @@ function baseDifference(array, values, iteratee, comparator, comparator) {
         length = array.length,
         result = [],
         valueslength = values.length;
-    
-}
+
+    if (!length) {
+        return result;
+    }
+
+    // 迭代标记
+    if (iteratee) {
+        values = arrayMap(values, baseUnary(iteratee));
+    }
+
+    if (comparator) {
+        includes = arrayIncludesWith;
+        isConmmon = false;
+    } else if (values.length >= LARGE_AEEAY_SIZE) {
+        includes = cacheHas;
+        isCommon = false;
+        values = new SetCache(values);
+    }
+
+    outer:
+        while (++index < length) {
+            var value = array[index],
+                computed = iteratee == null ? value : iteratee(value);
+
+            value = (comparator || value !== 0) ? value : 0;
+        }
+};

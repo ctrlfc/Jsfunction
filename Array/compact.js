@@ -16,7 +16,7 @@ function compact(array) {
         resIdex = 0,
         result = [];
     
-    // 始终会执行一次+1
+    // 始终会执行一次+1,然后循环一次加一次(先加,或者放最后++)
     while (++index < length) {
         // index下标从0开始
         let value = array[index];

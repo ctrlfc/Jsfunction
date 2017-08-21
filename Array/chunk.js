@@ -20,7 +20,7 @@ function slice(array, start, end) {
     length = ((end - start) >>> 0);
     start >>>= 0;
 
-    let result = new Array(length);
+    const result = new Array(length);
 
     // 始终返回一次
     while (++index < length) {
