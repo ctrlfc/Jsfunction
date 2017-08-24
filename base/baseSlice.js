@@ -14,3 +14,5 @@ function baseSlice(array, start, end) {
     }
     return result;
 }
+
+exports.baseSlice = baseSlice;

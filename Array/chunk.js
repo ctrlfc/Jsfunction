@@ -1,7 +1,9 @@
 /**
  * Created by king on 2017/7/17.
  */
-import baseSlice from "../base/baseSlice";
+
+ // 基础拆分
+const { baseSlice } = require("../base/baseSlice");
 
 /**
  * 将数组（array）拆分成多个 size 长度的区块，并将这些区块组成一个新数组。 如果array 无法被分割成全部等长的区块，那么最后剩余的元素将组成一个区块。
@@ -31,5 +33,5 @@ function chunk(array, size) {
     return result;
 }
 
-console.log(chunk(['a', 'b', 'c', 'd'], 2));
-console.log(chunk(['a', 'b', 'c', 'd'], 3));
+console.log(chunk(["a", "b", "c", "d"], 2));
+console.log(chunk(["a", "b", "c", "d"], 3));
